@@ -1,0 +1,117 @@
+if game.PlaceId == 12218115185 then
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Become a hacker to prove dad wrong", HidePremium = false, IntroEnabled = false ,IntroText = "You are being hacked", SaveConfig = true, ConfigFolder = "OrionTest"})
+
+-- Values
+_G.Autohack = true
+_G.AutoUpgradeM = true
+_G.AutoUpgradeW = true
+
+
+-- Functions
+
+function Autohack()
+    while _G.Autohack == true do
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("HackService"):WaitForChild("RF"):WaitForChild("StartHack"):InvokeServer()
+        wait(0.1)
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("DataService"):WaitForChild("RF"):WaitForChild("GetSpeed"):InvokeServer()
+        wait(0.1)
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("HackService"):WaitForChild("RF"):WaitForChild("EndHack"):InvokeServer()
+        wait(0.1)
+    end
+end
+
+function AutoUpgradeM()
+    while _G.AutoUpgradeM == true  do
+        local args = {
+            [1] = "HackSkill"
+        }
+    
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("DataService"):WaitForChild("RF"):WaitForChild("BuyUpgrade"):InvokeServer(unpack(args))
+        wait(0.1)
+    end
+end
+
+function AutoUpgradeW()
+    while _G.AutoUpgradeW == true do
+        local args = {
+            [1] = "WifiSpeed"
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("DataService"):WaitForChild("RF"):WaitForChild("BuyUpgrade"):InvokeServer(unpack(args))
+        wait(0.1)
+    end
+end        
+
+function AntiAFK()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/KazeOnTop/Rice-Anti-Afk/main/Wind", true))()
+end
+
+function InfYield()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end
+
+
+-- Tabs
+local FarmTab = Window:MakeTab({
+	Name = "AutoFarm",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local MiscTab = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+
+-- Toggles
+FarmTab:AddToggle({
+	Name = "Autohack",
+	Default = false,
+	Callback = function(Value)
+		_G.Autohack = Value
+        Autohack()
+	end    
+})
+
+FarmTab:AddToggle({
+	Name = "AutoUpgradeMoney",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoUpgradeM = Value
+        AutoUpgradeM()
+	end    
+})
+
+FarmTab:AddToggle({
+	Name = "AutoUpgradeWifi",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoUpgradeW = Value
+        AutoUpgradeW()
+	end    
+})
+
+
+-- Buttons
+MiscTab:AddButton({
+	Name = "Antiafk",
+	Callback = function()
+      	AntiAFK()
+  	end    
+})
+
+
+MiscTab:AddButton({
+	Name = "Infinite Yield",
+	Callback = function()
+      	InfYield()
+  	end    
+})
+
+
+
+end
+OrionLib:Init()
